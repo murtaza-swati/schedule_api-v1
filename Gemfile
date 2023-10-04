@@ -10,6 +10,8 @@ gem 'zeitwerk'
 
 gem "rake", "~> 13.0"
 
+gem "dotenv", "~> 2.8"
+
 group :development, :test do
   gem "debug", ">= 1.0.0"
 end
@@ -22,4 +24,6 @@ group :test do
   gem "rspec", "~> 3.12"
   gem 'database_cleaner-active_record'
 end
+
+
 
