@@ -14,7 +14,12 @@ group :development, :test do
   gem "debug", ">= 1.0.0"
 end
 
-# Testing
+group :development do
+  gem "annotate", "~> 3.2"
+end
+
 group :test do
   gem "rspec", "~> 3.12"
+  gem 'database_cleaner-active_record'
 end
+
