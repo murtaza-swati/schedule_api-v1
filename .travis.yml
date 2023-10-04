@@ -1,0 +1,7 @@
+language: ruby
+rvm:
+  - 2.7.2
+
+script:
+  - bundle exec rake db:migrate RACK_ENV=test
+  - bundle exec rake
