@@ -1,4 +1,4 @@
-https://app.travis-ci.com/DominikAlberski/schedule_api.svg?branch=main
+![badge](https://app.travis-ci.com/DominikAlberski/schedule_api.svg?branch=main)
 # Scheduler API
 
 Simple API for scheduling appointments with doctors. Written in Ruby and Sinatra.
