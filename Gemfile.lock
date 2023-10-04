@@ -12,17 +12,45 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
     concurrent-ruby (1.2.2)
+    debug (1.8.0)
+      irb (>= 1.5.0)
+      reline (>= 0.3.1)
+    diff-lcs (1.5.0)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
+    io-console (0.6.0)
+    irb (1.8.1)
+      rdoc
+      reline (>= 0.3.8)
     mini_portile2 (2.8.4)
     minitest (5.20.0)
     multi_json (1.15.0)
     nio4r (2.5.9)
+    psych (5.1.0)
+      stringio
     puma (6.4.0)
       nio4r (~> 2.0)
     rack (1.6.13)
     rack-protection (1.5.5)
       rack
+    rake (13.0.6)
+    rdoc (6.5.0)
+      psych (>= 4.0.0)
+    reline (0.3.9)
+      io-console (~> 0.5)
+    rspec (3.12.0)
+      rspec-core (~> 3.12.0)
+      rspec-expectations (~> 3.12.0)
+      rspec-mocks (~> 3.12.0)
+    rspec-core (3.12.2)
+      rspec-support (~> 3.12.0)
+    rspec-expectations (3.12.3)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.12.0)
+    rspec-mocks (3.12.6)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.12.0)
+    rspec-support (3.12.1)
     sinatra (1.4.8)
       rack (~> 1.5)
       rack-protection (~> 1.4)
@@ -35,6 +63,7 @@ GEM
       sinatra (~> 1.0)
     sqlite3 (1.6.6)
       mini_portile2 (~> 2.8.0)
+    stringio (3.0.8)
     tilt (2.3.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
@@ -44,7 +73,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  debug (>= 1.0.0)
   puma
+  rake (~> 13.0)
+  rspec (~> 3.12)
   sinatra
   sinatra-activerecord
   sinatra-json
