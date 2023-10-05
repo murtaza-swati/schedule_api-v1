@@ -14,6 +14,7 @@ gem "dotenv", "~> 2.8"
 
 group :development, :test do
   gem "debug", ">= 1.0.0"
+  gem "standard", "~> 1.31"
 end
 
 group :development do
@@ -24,6 +25,3 @@ group :test do
   gem "rspec", "~> 3.12"
   gem 'database_cleaner-active_record'
 end
-
-
-

@@ -1,6 +1,7 @@
 require 'dotenv/tasks'
 require 'sinatra/activerecord/rake'
 require 'rspec/core/rake_task'
+require "standard/rake"
 require './app'
 ENV['RACK_ENV'] = 'development'
 
