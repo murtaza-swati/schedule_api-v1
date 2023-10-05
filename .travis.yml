@@ -19,4 +19,4 @@ jobs:
 
 stages:
   - lint
-  - test
+  - test # default stage
