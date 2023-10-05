@@ -4,8 +4,8 @@ class Appointment::OverlappingScope
       appointment_id: appointment.id,
       doctor_id: appointment.doctor_id,
       start_time: appointment.start_time,
-      slot_duration: appointment.doctor.slot_duration_in_minutes,
-      break_duration: appointment.doctor.break_duration_in_minutes
+      slot_duration: appointment.doctor.slot_duration,
+      break_duration: appointment.doctor.break_duration
     ).call
   end
 

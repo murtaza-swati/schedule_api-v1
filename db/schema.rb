@@ -25,9 +25,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_03_132211) do
     t.string "name"
     t.time "work_start_time"
     t.time "work_end_time"
-    t.integer "slot_duration_in_minutes"
+    t.integer "slot_duration"
     t.integer "appointment_slot_limit"
-    t.integer "break_duration_in_minutes"
+    t.integer "break_duration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

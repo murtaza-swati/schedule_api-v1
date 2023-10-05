@@ -39,8 +39,8 @@ RSpec.describe Appointment::OverlappingScope do
           name: "Dr. John Doe",
           work_start_time: Time.parse("9:00 AM").to_formatted_s(:db),
           work_end_time: Time.parse("5:00 PM").to_formatted_s(:db),
-          slot_duration_in_minutes: 55,
-          break_duration_in_minutes: 5
+          slot_duration: 55,
+          break_duration: 5
         )
       end
 

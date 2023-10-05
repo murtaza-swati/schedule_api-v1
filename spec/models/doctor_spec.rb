@@ -6,9 +6,9 @@
 #  name                      :string
 #  work_start_time           :time
 #  work_end_time             :time
-#  slot_duration_in_minutes  :integer
+#  slot_duration             :integer
 #  appointment_slot_limit    :integer
-#  break_duration_in_minutes :integer
+#  break_duration            :integer
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
 #
@@ -20,8 +20,8 @@ RSpec.describe Doctor do
       name: "Dr. John Doe",
       work_start_time: start_time,
       work_end_time: end_time,
-      slot_duration_in_minutes: 55,
-      break_duration_in_minutes: 5
+      slot_duration: 55,
+      break_duration: 5
     )
   end
 
