@@ -15,7 +15,9 @@
 class Doctor < ActiveRecord::Base
   has_many :appointments
 
-  # This method checks if the given appointment_time falls within the doctor's working hours.
+  validates :name, :work_start_time, :work_end_time, :slot_duration_in_minutes,
+    :break_duration_in_minutes, presence: true
+
   def appointment_within_working_hours?(appointment_time)
     appt_time_as_time = Time.new(
       work_start_time.year,
@@ -31,6 +33,6 @@ class Doctor < ActiveRecord::Base
 
     # Check if both start and end times are within doctor's working hours.
     appt_time_as_time.between?(work_start_time, work_end_time) &&
-    appointment_end_time.between?(work_start_time, work_end_time)
+      appointment_end_time.between?(work_start_time, work_end_time)
   end
 end
