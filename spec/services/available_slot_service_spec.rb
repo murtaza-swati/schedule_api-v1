@@ -20,7 +20,7 @@ RSpec.describe AvailableSlotService do
 
   describe ".call" do
     before do
-      allow(AvailableSlotService).to receive(:new).and_return(true)
+      allow(AvailableSlotService).to receive(:new).and_return(service)
     end
 
     it "calls new" do
