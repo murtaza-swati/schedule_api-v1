@@ -36,8 +36,8 @@ class Appointment::OverlappingScope
         (start_time <= '%{slot_end_time}' AND datetime(start_time, '+%{slot_duration} minutes') > '%{start_time}') OR
         ('%{start_time}' < datetime('%{slot_end_time}', '+%{break_duration} minutes') AND '%{start_time}' >= '%{slot_end_time}')
       SQL
-      slot_end_time: slot_end_time.strftime('%Y-%m-%d %H:%M:%S'),
-      start_time: start_time.strftime('%Y-%m-%d %H:%M:%S'),
+      slot_end_time: slot_end_time.strftime("%Y-%m-%d %H:%M:%S"),
+      start_time: start_time.strftime("%Y-%m-%d %H:%M:%S"),
       slot_duration: slot_duration,
       break_duration: break_duration
     )

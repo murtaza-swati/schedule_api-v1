@@ -1,12 +1,11 @@
-require_relative 'spec_helper'
-require_relative '../app'
+require_relative "spec_helper"
+require_relative "../app"
 # Exit if the environment is not set.
-exit unless ENV['RACK_ENV'] == 'test'
+exit unless ENV["RACK_ENV"] == "test"
 
-require 'database_cleaner/active_record'
+require "database_cleaner/active_record"
 
 RSpec.configure do |config|
-
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
@@ -17,5 +16,4 @@ RSpec.configure do |config|
       example.run
     end
   end
-
 end

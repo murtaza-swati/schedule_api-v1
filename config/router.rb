@@ -1,7 +1,5 @@
-
 class Router < Sinatra::Base
-  get '/' do
+  get "/" do
     ::Home.new.index
   end
 end
-

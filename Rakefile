@@ -1,13 +1,13 @@
-require 'dotenv/tasks'
-require 'sinatra/activerecord/rake'
-require 'rspec/core/rake_task'
+require "dotenv/tasks"
+require "sinatra/activerecord/rake"
+require "rspec/core/rake_task"
 require "standard/rake"
-require './app'
-ENV['RACK_ENV'] = 'development'
+require "./app"
+ENV["RACK_ENV"] = "development"
 
 # RSpec Rake task for running tests
-RSpec::Core::RakeTask.new(:spec => "db:test:prepare") do
-  ENV['RACK_ENV'] = 'test'
+RSpec::Core::RakeTask.new(spec: "db:test:prepare") do
+  ENV["RACK_ENV"] = "test"
 end
 
 task default: :spec

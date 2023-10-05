@@ -1,9 +1,9 @@
-require 'test_helper'
+require "test_helper"
 
 RSpec.describe Appointment::OverlappingScope do
   let(:appointment_id) { 1 }
   let(:doctor_id) { 2 }
-  let(:start_time) { DateTime.parse('04.10.2023 10:30 AM') }
+  let(:start_time) { DateTime.parse("04.10.2023 10:30 AM") }
   let(:slot_duration) { 55 }
   let(:break_duration) { 5 }
 
@@ -17,14 +17,14 @@ RSpec.describe Appointment::OverlappingScope do
     )
   end
 
-  describe '#call' do
-    it 'do not rise error' do
+  describe "#call" do
+    it "do not rise error" do
       expect { subject.call }.not_to raise_error
     end
 
-    it 'generates the correct SQL' do
+    it "generates the correct SQL" do
       expect(subject.call.to_sql.squish).to eq(
-        <<-SQL.squish,
+        <<-SQL.squish
         SELECT "appointments".* FROM "appointments" WHERE "appointments"."doctor_id" = 2 AND ( (start_time <= '2023-10-04 11:25:00' AND datetime(start_time, '+55 minutes') > '2023-10-04 10:30:00') OR ('2023-10-04 10:30:00' < datetime('2023-10-04 11:25:00', '+5 minutes') AND '2023-10-04 10:30:00' >= '2023-10-04 11:25:00') ) AND "appointments"."id" != 1
         SQL
       ), subject.call.to_sql.squish
@@ -36,9 +36,9 @@ RSpec.describe Appointment::OverlappingScope do
 
       let(:doctor) do
         Doctor.create!(
-          name: 'Dr. John Doe',
-          work_start_time: Time.parse('9:00 AM').to_formatted_s(:db),
-          work_end_time: Time.parse('5:00 PM').to_formatted_s(:db),
+          name: "Dr. John Doe",
+          work_start_time: Time.parse("9:00 AM").to_formatted_s(:db),
+          work_end_time: Time.parse("5:00 PM").to_formatted_s(:db),
           slot_duration_in_minutes: 55,
           break_duration_in_minutes: 5
         )
@@ -47,12 +47,12 @@ RSpec.describe Appointment::OverlappingScope do
       before do
         Appointment.create!(
           doctor_id: doctor_id,
-          start_time: DateTime.parse('04.10.2023 10:00 AM').to_formatted_s(:db),
-          patient_name: 'John Doe'
+          start_time: DateTime.parse("04.10.2023 10:00 AM").to_formatted_s(:db),
+          patient_name: "John Doe"
         )
       end
 
-      it 'returns the correct records' do
+      it "returns the correct records" do
         expect(subject.call.count).to eq(1)
       end
     end
