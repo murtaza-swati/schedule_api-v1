@@ -1,21 +1,22 @@
 language: ruby
 cache: bundler
-rvm:
-  - 2.7.5
-  - 3.2.2
-
 branches:
   only:
     - main
 
+# define jobs matrix run on test stage
+rvm:
+  - 2.7.5
+  - 3.2.2
+
 jobs:
   include:
     - stage: lint
+      rvm: 2.7.5
       name: "Lint code with standard"
       script:
         - bundle exec rake standard
-    # - stage: test
-    #   name: "test"
-    #   script:
-    #     - bundle exec rake db:migrate RACK_ENV=test
-    #     - bundle exec rake
+
+stages:
+  - lint
+  - test
