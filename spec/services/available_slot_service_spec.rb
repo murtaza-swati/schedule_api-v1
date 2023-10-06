@@ -48,7 +48,11 @@ RSpec.describe AvailableSlotService do
     context "when there are appointments" do
       let(:result) do
         {
-          "05-10-2023" => ["09:00 AM UTC - 11:00 AM UTC", "12:00 PM UTC - 05:00 PM UTC"], # there is appointment from 11:00 AM UTC to 11:55 AM UTC + 5 min break so the next free slot starts at 12:00 PM UTC
+          "05-10-2023" => [
+            "09:00 AM UTC - 11:00 AM UTC",
+            "12:00 PM UTC - 01:00 PM UTC",
+            "02:00 PM UTC - 05:00 PM UTC"
+          ],
           "06-10-2023" => ["09:00 AM UTC - 05:00 PM UTC"]
         }
       end

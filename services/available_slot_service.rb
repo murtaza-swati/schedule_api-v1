@@ -29,7 +29,7 @@ class AvailableSlotService
 
         working_hours.map { |range| format_range(range) }
       end
-      @result[date.strftime('%d-%m-%Y')] = working_hours.map { |range| format_range(range) }
+      @result[date.strftime("%d-%m-%Y")] = working_hours.map { |range| format_range(range) }
     end
 
     @result
@@ -51,7 +51,7 @@ class AvailableSlotService
   # @param date [Date] The date to find appointments for
   # @return [ActiveRecord::Relation] An ActiveRecord relation containing appointments for the given date
   def find_appointments_for(date)
-    @doctor.appointments.where('DATE(start_time) = ?', date).order(:start_time)
+    @doctor.appointments.where("DATE(start_time) = ?", date).order(:start_time)
   end
 
   # Subtracts an occupied range from a given range
@@ -94,7 +94,7 @@ class AvailableSlotService
   # @param range [Range] The range to format
   # @return [String] A string representing the formatted range
   def format_range(range)
-    "#{format_time(range.begin)} - #{format_time(range.end)}".squeeze(' ')
+    "#{format_time(range.begin)} - #{format_time(range.end)}".squeeze(" ")
   end
 
   # Formats a given time to a string
