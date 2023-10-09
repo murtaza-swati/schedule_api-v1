@@ -6,7 +6,7 @@ require "./app"
 ENV["RACK_ENV"] = "development"
 
 # RSpec Rake task for running tests
-RSpec::Core::RakeTask.new(spec: "db:test:prepare") do
+RSpec::Core::RakeTask.new do
   ENV["RACK_ENV"] = "test"
 end
 
