@@ -1,5 +1,15 @@
 class Router < Sinatra::Base
+  before do
+    halt 403 unless authorized?
+  end
+
   get "/" do
-    ::Home.new.index
+    HomeController.new.index
+  end
+
+  helpers do
+    def authorized?
+      true
+    end
   end
 end
