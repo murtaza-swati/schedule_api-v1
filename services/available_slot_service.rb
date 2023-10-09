@@ -102,6 +102,6 @@ class AvailableSlotService
   # @param time [Time] The time to format
   # @return [String] A string representing the formatted time
   def format_time(time)
-    time.strftime("%I:%M %p UTC").strip
+    time.strftime("%I:%M %p").strip
   end
 end

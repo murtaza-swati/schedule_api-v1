@@ -35,8 +35,8 @@ RSpec.describe AvailableSlotService do
     context "when there are no appointments" do
       let(:result) do
         {
-          "05-10-2023" => ["09:00 AM UTC - 05:00 PM UTC"], # we cannot exceed 5:00 PM UTC because it would mean that the appointment would end after the doctor's working hours.
-          "06-10-2023" => ["09:00 AM UTC - 05:00 PM UTC"]
+          "05-10-2023" => ["09:00 AM - 05:00 PM"], # we cannot exceed 5:00 PM UTC because it would mean that the appointment would end after the doctor's working hours.
+          "06-10-2023" => ["09:00 AM - 05:00 PM"]
         }
       end
 
@@ -49,11 +49,11 @@ RSpec.describe AvailableSlotService do
       let(:result) do
         {
           "05-10-2023" => [
-            "09:00 AM UTC - 11:00 AM UTC",
-            "12:00 PM UTC - 01:00 PM UTC",
-            "02:00 PM UTC - 05:00 PM UTC"
+            "09:00 AM - 11:00 AM",
+            "12:00 PM - 01:00 PM",
+            "02:00 PM - 05:00 PM"
           ],
-          "06-10-2023" => ["09:00 AM UTC - 05:00 PM UTC"]
+          "06-10-2023" => ["09:00 AM - 05:00 PM"]
         }
       end
 
