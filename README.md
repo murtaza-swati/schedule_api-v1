@@ -28,6 +28,12 @@ To authorize You need to make POST request to `/exchange_key` with `email` and `
 In response You will receive `access_token` that You need to use in all other requests to `/api/v1/*` in `Authorization` header.
 You can check if Your token is valid by making GET request to `/api/v1`
 
+### Endpoints
+
+#### GET /api/v1
+#### POST /exchange_key
+#### GET /api/v1/doctors/:doctor_id/hours
+
 ## Tests
 
 Tests are written with RSpec. To run them, run `bundle exec rake` in the root directory of the project.
