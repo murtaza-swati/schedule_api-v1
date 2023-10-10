@@ -4,7 +4,7 @@ RSpec.describe DoctorsController do
   let(:doctor) { create(:doctor) }
 
   describe ".call" do
-    let(:params) { { doctor_id: doctor.id } }
+    let(:params) { {doctor_id: doctor.id} }
 
     context "when method is :availability" do
       let(:method) { :availability }

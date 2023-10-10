@@ -1,10 +1,6 @@
 require "delegate"
 
 class Doctor::Presenter < SimpleDelegator
-  def initialize(doctor)
-    super(doctor)
-  end
-
   def availability
     {
       doctor_id: id,
