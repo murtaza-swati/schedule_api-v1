@@ -8,28 +8,58 @@ RSpec.describe Router do
     Router
   end
 
-  context "GET /" do
-    context "when authorized" do
-      # Mock or setup the authorization to succeed
-      before do
-        allow_any_instance_of(Router).to receive(:authorized?).and_return(true)
-      end
+  context "GET /api/" do
+    let(:organization) { create(:organization) }
+    let(:token) { AuthToken.issue_token(organization_id: organization.id) }
+
+    context "when authenticated" do
+      let(:headers) { {"Authorization" => "Bearer #{token}"} }
 
       it "responds with 200" do
-        get "/"
+        get "/api/v1", nil, headers
         expect(last_response).to be_ok
       end
     end
 
-    context "when not authorized" do
-      # Mock or setup the authorization to fail
-      before do
-        allow_any_instance_of(Router).to receive(:authorized?).and_return(false)
-      end
+    context "when not authenticated" do
+      let(:headers) { {} }
 
       it "responds with 403" do
-        get "/"
+        get "/api/v1", nil, headers
         expect(last_response.status).to eq(403)
+      end
+    end
+  end
+
+  context "POST /exchange_key" do
+    let(:api_key) { ApiKeyService.new.generate_api_key }
+    let(:organization) { create(:organization, api_key: api_key) }
+
+    before do
+      post "/exchange_key", params
+    end
+
+    context "when valid params" do
+      let(:params) { {email: organization.email, api_key: api_key} }
+
+      it "responds with 200" do
+        expect(last_response).to be_ok
+      end
+
+      it "returns a token" do
+        expect(JSON.parse(last_response.body)).to include("token")
+      end
+    end
+
+    context "when invalid params" do
+      let(:params) { {email: "invalid", api_key: api_key} }
+
+      it "responds with 200" do
+        expect(last_response).to be_ok
+      end
+
+      it "returns a token" do
+        expect(JSON.parse(last_response.body)).to include("error")
       end
     end
   end

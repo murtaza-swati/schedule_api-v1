@@ -1,15 +1,16 @@
 class Router < Sinatra::Base
-  before do
-    halt 403 unless authorized?
+  helpers Authentication
+
+  before "/api/*" do
+    return if authenticated?
+    halt 403, {error: errors.join(" ")}.to_json
   end
 
-  get "/" do
-    HomeController.new.index
+  get "/api/v1" do
+    {message: "pong"}.to_json
   end
 
-  helpers do
-    def authorized?
-      true
-    end
+  post "/exchange_key" do
+    exchange_key.to_json
   end
 end

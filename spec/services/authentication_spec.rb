@@ -9,7 +9,7 @@ RSpec.describe Authentication do
         @request = request
       end
       include Authentication
-    end.new(params: params, request: OpenStruct.new(headers: headers))
+    end.new(params: params, request: OpenStruct.new(env: headers))
   end
 
   let(:organization) { create(:organization, api_key: api_key) }
@@ -24,7 +24,7 @@ RSpec.describe Authentication do
       let(:params) { {api_key: api_key, email: organization.email} }
 
       it "returns JWT token" do
-        expect(subject).to eq(token)
+        expect(subject).to eq({token: token})
       end
     end
 
@@ -32,7 +32,7 @@ RSpec.describe Authentication do
       let(:params) { {api_key: "invalid"} }
 
       it "returns nil" do
-        expect(subject).to be_nil
+        expect(subject).to eq({error: "Incorrect email or api_key"})
       end
     end
 
@@ -40,7 +40,7 @@ RSpec.describe Authentication do
       let(:params) { {api_key: api_key, email: "invalid"} }
 
       it "returns nil" do
-        expect(subject).to be_nil
+        expect(subject).to eq({error: "Incorrect email or api_key"})
       end
     end
   end
@@ -58,8 +58,8 @@ RSpec.describe Authentication do
     context "when token is invalid" do
       let(:token) { "invalid" }
 
-      it "raises an AuthError" do
-        expect { subject }.to raise_error(Authentication::AuthError)
+      it "returns nil" do
+        expect(subject).to be_nil
       end
     end
   end

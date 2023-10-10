@@ -1,12 +1,12 @@
 module Authentication
-  class AuthError < StandardError; end
+  attr_accessor :errors
 
   def exchange_key
     organization = Organization.find_by(email: params[:email])
-    return nil unless organization
-    return nil unless organization.authenticate_api_key(params[:api_key])
+    error = {error: "Incorrect email or api_key"}
+    return error unless organization&.authenticate_api_key(params[:api_key])
 
-    AuthToken.issue_token(organization_id: organization.id)
+    {token: AuthToken.issue_token(organization_id: organization.id)}
   end
 
   def current_organization
@@ -14,25 +14,23 @@ module Authentication
   end
 
   def authenticated?
-    self.token = request.headers["Authorization"]
+    self.errors = []
+    validate_token(request.env["Authorization"])
+    errors.empty?
   end
 
   private
 
-  attr_reader :token
-
-  def token=(token)
-    @token = validate_token(token)
-  end
+  attr_accessor :token
 
   def validate_token(token)
     case token
     when /^Bearer /
-      AuthToken.decode_token(token.gsub(/^Bearer /, ""))
+      self.token = AuthToken.decode_token(token.gsub(/^Bearer /, ""))
     else
-      raise AuthError, "Token must be a Bearer token" # TODO: add to locale
+      errors << ["Token must be a Bearer token"] # TODO: add to locale
     end
   rescue JWT::DecodeError => e
-    raise AuthError, "Invalid token " + e.message # TODO: add to locale
+    errors << "Invalid token " + e.message # TODO: add to locale
   end
 end
