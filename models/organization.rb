@@ -9,6 +9,6 @@ class Organization < ActiveRecord::Base
   end
 
   def authenticate_api_key(test_api_key)
-    BCrypt::Password.new(self.api_key_digest) == test_api_key
+    BCrypt::Password.new(api_key_digest) == test_api_key
   end
 end
