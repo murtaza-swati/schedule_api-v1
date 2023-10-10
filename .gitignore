@@ -57,3 +57,4 @@ build-iPhoneSimulator/
 
 # Ignore database files
 db/*.sqlite3
+.env
