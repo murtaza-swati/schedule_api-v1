@@ -95,5 +95,5 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 
-  FactoryBot.definition_file_paths = %w{./spec/factories}
+  FactoryBot.definition_file_paths = %w[./spec/factories]
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_03_132211) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_09_150054) do
   create_table "appointments", force: :cascade do |t|
     t.integer "doctor_id"
     t.string "patient_name"
@@ -30,6 +30,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_03_132211) do
     t.integer "break_duration"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "organizations", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "api_key_digest"
+    t.string "token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_organizations_on_email", unique: true
   end
 
   add_foreign_key "appointments", "doctors"

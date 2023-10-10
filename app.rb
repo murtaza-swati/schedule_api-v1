@@ -6,7 +6,7 @@ require "sinatra/json"
 require "yaml"
 require "erb"
 require "zeitwerk"
-require 'securerandom'
+require "securerandom"
 require "pry" if ENV["RACK_ENV"] != "production"
 
 loader = Zeitwerk::Loader.new
