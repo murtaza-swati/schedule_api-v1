@@ -18,7 +18,7 @@ RSpec.describe Appointment::OverlappingScope do
   end
 
   describe "#call" do
-    it "do not rise error" do
+    it "do not raise error" do
       expect { subject.call }.not_to raise_error
     end
 
