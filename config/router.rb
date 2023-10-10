@@ -1,3 +1,8 @@
+# Endpoint to find a doctors working hours
+# Endpoint to book a doctors open slot
+# Endpoint to update a doctors appointment
+# Endpoint to delete a doctors appointment
+# Endpoint to view a doctors availability
 class Router < Sinatra::Base
   helpers Authentication
 
@@ -13,4 +18,24 @@ class Router < Sinatra::Base
   post "/exchange_key" do
     exchange_key.to_json
   end
+
+  get "/api/v1/doctors/:doctor_id/hours" do
+    DoctorsController.call(:availability, params).to_json
+  end
+
+  # get "/api/v1/doctors/:doctor_id/availability" do
+  #   AppointmentsController.new.index(params).to_json
+  # end
+
+  # post "/api/v1/doctors/:doctor_id/appointments" do
+  #   AppointmentsController.new.create(params).to_json
+  # end
+
+  # put "/api/v1/doctors/:doctor_id/appointments/:appointment_id" do
+  #   AppointmentsController.new.update(params).to_json
+  # end
+
+  # delete "/api/v1/doctors/:doctor_id/appointments/:appointment_id" do
+  #   AppointmentsController.new.delete(params).to_json
+  # end
 end

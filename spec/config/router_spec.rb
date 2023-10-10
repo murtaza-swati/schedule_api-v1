@@ -8,7 +8,7 @@ RSpec.describe Router do
     Router
   end
 
-  context "GET /api/" do
+  describe "GET /api/" do
     let(:organization) { create(:organization) }
     let(:token) { AuthToken.issue_token(organization_id: organization.id) }
 
@@ -31,7 +31,7 @@ RSpec.describe Router do
     end
   end
 
-  context "POST /exchange_key" do
+  describe "POST /exchange_key" do
     let(:api_key) { ApiKeyService.new.generate_api_key }
     let(:organization) { create(:organization, api_key: api_key) }
 
@@ -61,6 +61,25 @@ RSpec.describe Router do
       it "returns a token" do
         expect(JSON.parse(last_response.body)).to include("error")
       end
+    end
+  end
+
+  describe "GET /api/v1/doctors/:doctor_id/hours" do
+    let(:organization) { create(:organization) }
+    let(:token) { AuthToken.issue_token(organization_id: organization.id) }
+    let(:doctor) { create(:doctor) }
+    let(:headers) { {"Authorization" => "Bearer #{token}"} }
+
+    before do
+      get "/api/v1/doctors/#{doctor.id}/hours", nil, headers
+    end
+
+    it "responds with 200" do
+      expect(last_response).to be_ok
+    end
+
+    it "returns the doctor's availability" do
+      expect(JSON.parse(last_response.body)).to include("working_hours")
     end
   end
 end

@@ -18,6 +18,8 @@ group :development, :test do
   gem "debug", ">= 1.0.0"
   gem "standard", "~> 1.31"
   gem "factory_bot"
+  gem "faker" # added faker gem
+
   gem "pry"
   gem "pry-byebug"
 end
