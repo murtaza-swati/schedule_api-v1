@@ -11,7 +11,7 @@ require "pry" if ENV["RACK_ENV"] != "production"
 
 loader = Zeitwerk::Loader.new
 loader.push_dir(File.join(__dir__, "models"))
-loader.push_dir(File.join(__dir__, "controllers"))
+# loader.push_dir(File.join(__dir__, "controllers"))
 loader.push_dir(File.join(__dir__, "config"))
 loader.push_dir(File.join(__dir__, "services"))
 loader.setup
