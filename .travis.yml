@@ -9,6 +9,10 @@ rvm:
   - 2.7.5
   - 3.2.2
 
+script:
+  - bundle exec rake db:setup
+  - bundle exec rake
+
 jobs:
   include:
     - stage: lint
