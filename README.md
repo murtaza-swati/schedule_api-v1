@@ -23,7 +23,7 @@ Here is a PostMan collection with the endpoints: [![Run in Postman](https://run.
 
 ## API
 To use API, you need to create a Organization and know this organization api_key.
-You can do this by running rake task `bundle exec rake organization:create` you will recive organization api_key and email.
+You can do this by running rake task `bundle exec rake organization:create\[organization_name,organization_email\]` you will recive organization api_key.
 To authorize You need to make POST request to `/exchange_key` with `email` and `api_key` in body.
 In response You will receive `access_token` that You need to use in all other requests to `/api/v1/*` in `Authorization` header.
 You can check if Your token is valid by making GET request to `/api/v1`
