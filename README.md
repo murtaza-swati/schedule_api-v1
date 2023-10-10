@@ -21,6 +21,12 @@ To run the server, run `ruby app` in the root directory of the project.
 The server will be running on `localhost:4567`.
 Here is a PostMan collection with the endpoints: [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/0b5b3b6b6b6b6b6b6b6b)
 
+## API
+To use API, you need to create a Organization and know this organization api_key.
+You can do this by running rake task `bundle exec rake organization:create` you will recive organization api_key and email.
+To authorize You need to make POST request to `/exchange_key` with `email` and `api_key` in body.
+In response You will receive `access_token` that You need to use in all other requests to `/api/v1/*` in `Authorization` header.
+You can check if Your token is valid by making GET request to `/api/v1`
 
 ## Tests
 
