@@ -2,6 +2,7 @@ source "https://rubygems.org"
 # ruby "2.7.5" # or any other version you would like to use I just had this preinstaled
 # Simple Sinatra API
 gem "bcrypt"
+gem "dry-schema"
 gem "sinatra"
 gem "puma"
 gem "sinatra-activerecord"
