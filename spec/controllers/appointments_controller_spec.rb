@@ -4,7 +4,7 @@ RSpec.describe AppointmentsController do
   describe ".call" do
     context "when doctor is not found" do
       it "returns an error message" do
-        expect(AppointmentsController.call(:action, {})).to eq({error: "Doctor not found"})
+        expect(AppointmentsController.call(:action, {})).to eq({error: {:doctor_id=>["is missing"]}})
       end
     end
 
@@ -50,7 +50,7 @@ RSpec.describe AppointmentsController do
     end
 
     it "calls CreateAppointmentService" do
-      expect(CreateAppointmentService)
+      expect(CreateAppointmentsService)
         .to receive(:call)
         .with(doctor, params)
         .and_return({})
