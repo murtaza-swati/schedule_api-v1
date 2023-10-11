@@ -10,10 +10,10 @@ require "securerandom"
 require "pry" if ENV["RACK_ENV"] != "production"
 
 loader = Zeitwerk::Loader.new
-loader.push_dir(File.join(__dir__, "models"))
-loader.push_dir(File.join(__dir__, "controllers"))
+loader.push_dir(File.join(__dir__, "app/models"))
+loader.push_dir(File.join(__dir__, "app/controllers"))
+loader.push_dir(File.join(__dir__, "app/services"))
 loader.push_dir(File.join(__dir__, "config"))
-loader.push_dir(File.join(__dir__, "services"))
 loader.setup
 loader.eager_load
 
