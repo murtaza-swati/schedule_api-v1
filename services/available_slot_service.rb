@@ -3,25 +3,25 @@ class AvailableSlotService
     new(*args).call
   end
 
-  def initialize(doctor, start_time: Date.current, end_time: Date.current + 7.days)
-    @doctor = doctor
-    @start_time = start_time
-    @end_time = end_time
-    @result = {}
+  def initialize(doctor, start_date: nil, end_date: nil)
+    self.doctor = doctor
+    self.start_date = start_date || Date.current
+    self.end_date = find_end_date(end_date, start_date)
+    self.result = {}
   end
 
   # Returns a hash containing available slots for a given doctor between start_time and end_time
   #
   # @return [Hash] A hash containing available slots for a given doctor between start_time and end_time
   def call
-    return @result if @result.present?
+    return result if result.present?
 
-    (@start_time..@end_time).each do |date|
-      working_hours = [(convert_to_time(date, @doctor.work_start_time)..convert_to_time(date, @doctor.work_end_time))]
+    (start_date..end_date).each do |date|
+      working_hours = [(convert_to_time(date, doctor.work_start_time)..convert_to_time(date, doctor.work_end_time))]
       appointments = find_appointments_for(date)
       unless appointments.empty?
         appointments.each do |appointment|
-          occupied_range = (appointment.start_time..(appointment.start_time + @doctor.slot_duration.minutes + @doctor.break_duration.minutes))
+          occupied_range = (appointment.start_time..(appointment.start_time + doctor.slot_duration.minutes + doctor.break_duration.minutes))
 
           working_hours[-1] = subtract_ranges(working_hours[-1], occupied_range)
           working_hours.flatten!
@@ -29,13 +29,21 @@ class AvailableSlotService
 
         working_hours.map { |range| format_range(range) }
       end
-      @result[date.strftime("%d-%m-%Y")] = working_hours.map { |range| format_range(range) }
+      result[date.strftime("%d-%m-%Y")] = working_hours.map { |range| format_range(range) }
     end
 
-    @result
+    result
   end
 
   private
+
+  attr_accessor :doctor, :start_date, :end_date, :result
+
+  def find_end_date(end_date, start_date)
+    return end_date if end_date.present?
+
+    (start_date || Date.current) + 6.days
+  end
 
   # Converts a given date and time to a Time object
   #
@@ -77,12 +85,12 @@ class AvailableSlotService
   def divide_range(range, gap)
     ranges = []
     # Check if there is possibility to add appointment before gap
-    if gap.begin - range.begin >= (@doctor.slot_duration.minutes + @doctor.break_duration.minutes)
+    if gap.begin - range.begin >= (doctor.slot_duration.minutes + doctor.break_duration.minutes)
       ranges << (range.begin..gap.begin)
     end
 
     # Check if there is possibility to add appointment after gap
-    if range.end - gap.end >= @doctor.slot_duration.minutes
+    if range.end - gap.end >= doctor.slot_duration.minutes
       ranges << (gap.end..range.end)
     end
 

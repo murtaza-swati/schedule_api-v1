@@ -1,6 +1,6 @@
 class DoctorsController
   def self.call(method, params)
-    doctor = Doctor.find(params[:doctor_id])
+    doctor = Doctor.where(id: params[:doctor_id]).first_or_initialize
     new(doctor).public_send(method)
   end
 

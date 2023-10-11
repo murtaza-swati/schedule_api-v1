@@ -1,8 +1,8 @@
 require "test_helper"
 
 RSpec.describe AvailableSlotService do
-  let(:start_time) { Date.parse("05-10-2023") }
-  let(:end_time) { Date.parse("06-10-2023") }
+  let(:start_date) { Date.parse("05-10-2023") }
+  let(:end_date) { Date.parse("06-10-2023") }
 
   let(:doctor) do
     Doctor.create!(
@@ -15,7 +15,7 @@ RSpec.describe AvailableSlotService do
   end
 
   let(:service) do
-    described_class.new(doctor, start_time: start_time, end_time: end_time)
+    described_class.new(doctor, start_date: start_date, end_date: end_date)
   end
 
   describe ".call" do
@@ -31,6 +31,26 @@ RSpec.describe AvailableSlotService do
 
   describe "#call" do
     subject { service.call }
+
+    context "with missing end_date" do
+      let(:end_date) { nil }
+
+      let(:result) do
+        {
+          "05-10-2023" => ["09:00 AM - 05:00 PM"],
+          "06-10-2023" => ["09:00 AM - 05:00 PM"],
+          "07-10-2023" => ["09:00 AM - 05:00 PM"],
+          "08-10-2023" => ["09:00 AM - 05:00 PM"],
+          "09-10-2023" => ["09:00 AM - 05:00 PM"],
+          "10-10-2023" => ["09:00 AM - 05:00 PM"],
+          "11-10-2023" => ["09:00 AM - 05:00 PM"]
+        }
+      end
+
+      it "returns all slots for the next 7 days" do
+        expect(subject).to eq(result)
+      end
+    end
 
     context "when there are no appointments" do
       let(:result) do
