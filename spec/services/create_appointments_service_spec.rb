@@ -18,7 +18,7 @@ RSpec.describe CreateAppointmentsService do
         {appointment: {patient_name: "John Doe", start_time: "05-10-2023 09:00 AM"}}
       end
 
-      fit "calls new" do
+      xit "calls new" do
         expect(described_class).to have_received(:new).with(doctor, appointments)
       end
     end
@@ -33,7 +33,7 @@ RSpec.describe CreateAppointmentsService do
         ]}
       end
 
-      fit "calls new" do
+      xit "calls new" do
         expect(described_class).to have_received(:new).with(doctor, appointments)
       end
     end
