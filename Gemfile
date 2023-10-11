@@ -29,7 +29,8 @@ group :development do
 end
 
 group :test do
+  gem "database_cleaner-active_record"
   gem "rspec", "~> 3.12"
   gem "rack-test"
-  gem "database_cleaner-active_record"
+  gem "simplecov", require: false
 end
