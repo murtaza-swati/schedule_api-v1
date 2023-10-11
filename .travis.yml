@@ -32,3 +32,4 @@ env:
 addons:
   artifacts:
     s3_region: eu-north-1
+    debug: true
