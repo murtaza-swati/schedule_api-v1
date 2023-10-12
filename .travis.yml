@@ -12,7 +12,6 @@ rvm:
 script:
   - bundle exec rake db:setup
   - bundle exec rake
-after_script:
   - cp -r coverage dcos
 
 jobs:
@@ -23,21 +22,21 @@ jobs:
       script:
         - bundle exec rake standard
     - stage: deploy
-      script: skip
+      rvm: 2.7.5
+      name: "Deploy to gh-pages"
+      deploy:
+        provider: pages
+        cleanup: false
+        github_token: $GITHUB_TOKEN
+        local_dir: docs
+        target_branch: gh-pages
+        on:
+          branch: main
 
 stages:
   - lint
   - test # default stage
   - deploy
-
-deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN
-  local_dir: docs
-  target_branch: gh-pages
-  on:
-    branch: main
 
 env:
   SECRET_KEY=0b1edf7e6c104a79c2986bebeb07b68d6fe617d3484c4eddc7ae7623e71cad496364709e3b4e2338d1c5ad95f83a6c75c3d8c9fb8cffbe0b5b169d7cdda8be29
@@ -47,3 +46,4 @@ env:
 #   artifacts:
 #     s3_region: eu-north-1
 #     debug: true
+
