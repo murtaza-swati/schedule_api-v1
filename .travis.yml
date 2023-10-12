@@ -5,7 +5,7 @@ branches:
     - main
 
 rvm:
-  - 2.7.5
+  - 2.9.0
   - 3.2.2
 
 before_script:
