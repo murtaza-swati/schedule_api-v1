@@ -22,10 +22,13 @@ jobs:
       name: "Lint code with standard"
       script:
         - bundle exec rake standard
+    - stage: deploy
+      script: skip
 
 stages:
   - lint
   - test # default stage
+  - deploy
 
 deploy:
   provider: pages
