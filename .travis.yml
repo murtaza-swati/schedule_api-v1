@@ -32,6 +32,8 @@ jobs:
         - bundle exec rake
       before_deploy:
         - cp -r coverage docs
+        - git add docs
+        - git commit -m "Add coverage report"
       deploy:
         provider: pages
         cleanup: false
