@@ -33,6 +33,10 @@ You can check if Your token is valid by making GET request to `/api/v1`
 #### GET /api/v1
 #### POST /exchange_key
 #### GET /api/v1/doctors/:doctor_id/hours
+#### GET /api/v1/doctors/:doctor_id/availability"
+#### "POST /api/v1/doctors/:doctor_id/appointments"
+#### "PUT /api/v1/doctors/:doctor_id/appointments/:appointment_id"
+#### "DELETE /api/v1/doctors/:doctor_id/appointments/:appointment_id"
 
 ## Tests
 
