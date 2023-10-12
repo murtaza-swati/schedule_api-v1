@@ -4,20 +4,15 @@ branches:
   only:
     - main
 
-# define jobs matrix run on test stage
 rvm:
   - 2.7.5
   - 3.2.2
 
-script:
+before_script:
   - bundle exec rake db:setup
-  - bundle exec rake
 
-before_deploy:
-  - bundle exec rake db:setup
+script:
   - bundle exec rake
-  - cp -r coverage docs
-  - git add docs
 
 jobs:
   include:
@@ -26,10 +21,14 @@ jobs:
       name: "Lint code with standard"
       script:
         - bundle exec rake standard
+
     - stage: deploy
+      if: branch = main
       rvm: 2.7.5
       name: "Deploy to gh-pages"
       script: skip
+      before_deploy:
+        - cp -r coverage docs
       deploy:
         provider: pages
         cleanup: false
@@ -45,10 +44,6 @@ stages:
   - deploy
 
 env:
-  SECRET_KEY=0b1edf7e6c104a79c2986bebeb07b68d6fe617d3484c4eddc7ae7623e71cad496364709e3b4e2338d1c5ad95f83a6c75c3d8c9fb8cffbe0b5b169d7cdda8be29
-  ARTIFACTS_PATHS="./coverage"
-
-# addons:
-#   artifacts:
-#     s3_region: eu-north-1
-#     debug: true
+  global:
+    - SECRET_KEY=0b1edf7e6c104a79c2986bebeb07b68d6fe617d3484c4eddc7ae7623e71cad496364709e3b4e2338d1c5ad95f83a6c75c3d8c9fb8cffbe0b5b169d7cdda8be29
+    - ARTIFACTS_PATHS="./coverage"
