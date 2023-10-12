@@ -17,8 +17,7 @@ before_deploy:
   - bundle exec rake db:setup
   - bundle exec rake
   - cp -r coverage docs
-  - cp -r docs $TRAVIS_BUILD_DIR
-  - cd $TRAVIS_BUILD_DIR && git add docs
+  - git add docs
 
 jobs:
   include:
