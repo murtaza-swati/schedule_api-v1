@@ -2,15 +2,15 @@
 #
 # Table name: doctors
 #
-#  id                        :integer          not null, primary key
-#  name                      :string
-#  work_start_time           :time
-#  work_end_time             :time
-#  slot_duration             :integer
-#  appointment_slot_limit    :integer
-#  break_duration            :integer
-#  created_at                :datetime         not null
-#  updated_at                :datetime         not null
+#  id                     :integer          not null, primary key
+#  name                   :string
+#  work_start_time        :time
+#  work_end_time          :time
+#  slot_duration          :integer
+#  appointment_slot_limit :integer
+#  break_duration         :integer
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
 #
 require "test_helper"
 

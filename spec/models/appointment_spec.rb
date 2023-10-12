@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: appointments
+#
+#  id           :integer          not null, primary key
+#  doctor_id    :integer
+#  patient_name :string
+#  start_time   :datetime
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
 require "test_helper"
 
 RSpec.describe Appointment do
