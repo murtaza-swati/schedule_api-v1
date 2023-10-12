@@ -39,6 +39,9 @@ You can check if Your token is valid by making GET request to `/api/v1`
 Tests are written with RSpec. To run them, run `bundle exec rake` in the root directory of the project.
 If You encounter database errors, run `RACK_ENV=test bundle exec rake db:create db:migrate` and then run the tests again.
 
+latest coverage report:
+[coverage](https://dominikalberski.github.io/schedule_api/#_AllFiles)
+
 ## License
 
 This project is licensed under the MIT license.
