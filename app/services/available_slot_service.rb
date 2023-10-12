@@ -1,6 +1,6 @@
 class AvailableSlotService
-  def self.call(*args)
-    new(*args).call
+  def self.call(*args, **kwargs)
+    new(*args, **kwargs).call
   end
 
   def initialize(doctor, start_date: nil, end_date: nil)
