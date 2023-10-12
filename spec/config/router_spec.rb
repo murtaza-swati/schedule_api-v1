@@ -144,8 +144,8 @@ RSpec.describe Router do
           expect(Appointment.count).to eq(2)
         end
 
-        xit "returns the appointments" do
-          expect(JSON.parse(last_response.body)).to include("John Doe", "Jane Doe")
+        it "returns the appointments" do
+          expect(JSON.parse(last_response.body).map { _1["patient_name"] }).to include("John Doe", "Jane Doe")
         end
       end
 
@@ -162,8 +162,8 @@ RSpec.describe Router do
           expect(Appointment.count).to eq(1)
         end
 
-        xit "returns the appointment" do
-          expect(JSON.parse(last_response.body)).to include("John Doe")
+        it "returns the appointment" do
+          expect(JSON.parse(last_response.body).values).to include("John Doe")
         end
       end
     end

@@ -25,7 +25,7 @@ class CreateAppointmentsService
   def create_appointment(appointment_params)
     appointment = doctor.appointments.build(appointment_params)
     if appointment.save
-      # AppointmentPresenter.new(appointment).to_h
+      Appointment::Presenter.new(appointment).to_h
     else
       appointment.errors
     end
