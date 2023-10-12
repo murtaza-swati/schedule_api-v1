@@ -28,14 +28,22 @@ class Router < Sinatra::Base
   end
 
   get "/api/v1/doctors/:doctor_id/hours" do
+    # REFACTOR: This should be hours, not availability
     DoctorsController.call(:availability, params).to_json
   end
 
   get "/api/v1/doctors/:doctor_id/availability" do
+    # REFACTOR: This should be availability, not index
     AppointmentsController.call(:index, params).to_json
   end
 
+  # TODO: Add a route to view a doctor's appointments
+  # get "/api/v1/doctors/:doctor_id/appointments" do
+  #   AppointmentsController.call(:index, params).to_json
+  # end
+
   post "/api/v1/doctors/:doctor_id/appointments" do
+    # TODO: right now this is using form params, but it should be using json params
     code, response = AppointmentsController.call(:create, params)
     status code
     response.to_json
