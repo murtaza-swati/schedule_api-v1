@@ -15,7 +15,7 @@ module Authentication
 
   def authenticated?
     self.errors = []
-    validate_token(request.env["Authorization"])
+    validate_token(request.env["Authorization"] || request.env["HTTP_AUTHORIZATION"])
     errors.empty?
   end
 
@@ -28,7 +28,7 @@ module Authentication
     when /^Bearer /
       self.token = AuthToken.decode_token(token.gsub(/^Bearer /, ""))
     else
-      errors << ["Token must be a Bearer token"] # TODO: add to locale
+      errors << ["Token must be a Bearer token not: #{token}"] # TODO: add to locale
     end
   rescue JWT::DecodeError => e
     errors << "Invalid token " + e.message # TODO: add to locale

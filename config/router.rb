@@ -6,6 +6,14 @@
 class Router < Sinatra::Base
   helpers Authentication
 
+  before do
+    content_type :json
+
+    unless request.accept? "application/json"
+      halt 415, { error: "Server only supports application/json" }.to_json
+    end
+  end
+
   before "/api/*" do
     return if authenticated?
     halt 403, {error: errors.join(" ")}.to_json

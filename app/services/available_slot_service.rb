@@ -16,10 +16,11 @@ class AvailableSlotService
   def call
     return result if result.present?
 
+    # TODO: Think of a better way to do this like grabbing all appointments in one query and maybe using group_by to group them by date
     (start_date..end_date).each do |date|
       working_hours = [(convert_to_time(date, doctor.work_start_time)..convert_to_time(date, doctor.work_end_time))]
       appointments = find_appointments_for(date)
-      unless appointments.empty?
+      if appointments.any?
         appointments.each do |appointment|
           occupied_range = (appointment.start_time..(appointment.start_time + doctor.slot_duration.minutes + doctor.break_duration.minutes))
 
