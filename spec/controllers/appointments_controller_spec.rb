@@ -4,7 +4,7 @@ RSpec.describe AppointmentsController do
   describe ".call" do
     context "when doctor is not found" do
       it "returns an error message" do
-        expect(AppointmentsController.call(:action, {})).to eq({error: {:doctor_id=>["is missing"]}})
+        expect(AppointmentsController.call(:action, {})).to eq({error: {doctor_id: ["is missing"]}})
       end
     end
 
