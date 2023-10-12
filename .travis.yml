@@ -12,7 +12,11 @@ rvm:
 script:
   - bundle exec rake db:setup
   - bundle exec rake
-  - cp -r coverage dcos
+  - cp -r coverage docs
+
+before_deploy:
+  - cp -r docs $TRAVIS_BUILD_DIR
+  - cd $TRAVIS_BUILD_DIR && git add docs
 
 jobs:
   include:
@@ -21,12 +25,16 @@ jobs:
       name: "Lint code with standard"
       script:
         - bundle exec rake standard
+    - stage: test
+      name: "Run tests"
+      script:
+        - bundle exec rake test
     - stage: deploy
-      rvm: 2.7.5
       name: "Deploy to gh-pages"
+      script: skip
       deploy:
         provider: pages
-        cleanup: false
+        skip_cleanup: true
         github_token: $GITHUB_TOKEN
         local_dir: docs
         target_branch: gh-pages
@@ -47,3 +55,4 @@ env:
 #     s3_region: eu-north-1
 #     debug: true
 
+# END: ed8c6549bwf9
