@@ -50,7 +50,6 @@ class AppointmentsController
     [400, {error: "Appointment not found"}]
   end
 
-
   private
 
   attr_accessor :doctor, :params
