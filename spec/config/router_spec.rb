@@ -167,5 +167,68 @@ RSpec.describe Router do
         end
       end
     end
+
+    xcontext "with invalid params" do
+      let(:params) do
+        {}
+      end
+
+      it "responds with 400" do
+        expect(last_response.status).to eq(400)
+      end
+
+      it "returns the errors" do
+        expect(JSON.parse(last_response.body)).to include("patient_name")
+      end
+
+      it "does not create the appointment" do
+        expect(Appointment.count).to eq(0)
+      end
+    end
+  end
+
+  describe "PUT /api/v1/doctors/:doctor_id/appointments/:appointment_id" do
+    let(:doctor) { create(:doctor) }
+    let(:appointment) { create(:appointment, doctor: doctor) }
+
+    before do
+      put "/api/v1/doctors/#{doctor.id}/appointments/#{appointment.id}", params, headers
+    end
+
+    xcontext "with valid params" do
+      let(:params) do
+        {appointment: {patient_name: "John Doe", start_time: "2019-01-01 09:00 AM UTC"}}
+      end
+
+      it "responds with 200" do
+        expect(last_response).to be_ok
+      end
+
+      it "updates the appointment" do
+        expect(appointment.reload.patient_name).to eq("John Doe")
+      end
+
+      it "returns the appointment" do
+        expect(JSON.parse(last_response.body).values).to include("John Doe")
+      end
+    end
+
+    xcontext "with invalid params" do
+      let(:params) do
+        {}
+      end
+
+      it "responds with 400" do
+        expect(last_response.status).to eq(400)
+      end
+
+      it "returns the errors" do
+        expect(JSON.parse(last_response.body)).to include("patient_name")
+      end
+
+      it "does not update the appointment" do
+        expect(appointment.reload.patient_name).not_to eq("John Doe")
+      end
+    end
   end
 end
