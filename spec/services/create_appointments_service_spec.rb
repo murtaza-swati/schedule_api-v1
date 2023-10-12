@@ -21,7 +21,7 @@ RSpec.describe CreateAppointmentsService do
       end
 
       it "returns code and appointment" do
-        expect(subject).to eq([200, [Appointment::Presenter.new(doctor.appointments.first).to_h]])
+        expect(subject).to eq([201, [Appointment::Presenter.new(doctor.appointments.first).to_h]])
       end
     end
 

@@ -136,8 +136,8 @@ RSpec.describe Router do
           }
         end
 
-        it "responds with 200" do
-          expect(last_response).to be_ok
+        it "responds with 201" do
+          expect(last_response).to be_created
         end
 
         it "creates the appointments" do
@@ -154,8 +154,8 @@ RSpec.describe Router do
           {appointment: {patient_name: "John Doe", start_time: "2019-01-01 09:00 AM UTC"}}
         end
 
-        it "responds with 200" do
-          expect(last_response).to be_ok
+        it "responds with 201" do
+          expect(last_response).to be_created
         end
 
         it "creates the appointment" do
@@ -195,7 +195,7 @@ RSpec.describe Router do
       put "/api/v1/doctors/#{doctor.id}/appointments/#{appointment.id}", params, headers
     end
 
-    xcontext "with valid params" do
+    context "with valid params" do
       let(:params) do
         {appointment: {patient_name: "John Doe", start_time: "2019-01-01 09:00 AM UTC"}}
       end
@@ -213,7 +213,7 @@ RSpec.describe Router do
       end
     end
 
-    xcontext "with invalid params" do
+    context "with invalid params" do
       let(:params) do
         {}
       end
@@ -223,11 +223,41 @@ RSpec.describe Router do
       end
 
       it "returns the errors" do
-        expect(JSON.parse(last_response.body)).to include("patient_name")
+        expect(JSON.parse(last_response.body)).to include("error" => "Appointment not found")
       end
 
       it "does not update the appointment" do
         expect(appointment.reload.patient_name).not_to eq("John Doe")
+      end
+    end
+  end
+
+  describe "DELETE /api/v1/doctors/:doctor_id/appointments/:appointment_id" do
+    let(:doctor) { create(:doctor) }
+    let(:appointment) { create(:appointment, doctor: doctor) }
+    let(:appointment_id) { appointment.id }
+
+    before do
+      delete "/api/v1/doctors/#{doctor.id}/appointments/#{appointment_id}", nil, headers
+    end
+
+    it "responds with 204" do
+      expect(last_response).to be_empty
+    end
+
+    it "deletes the appointment" do
+      expect(Appointment.count).to eq(0)
+    end
+
+    context "when appointment not found" do
+      let(:appointment_id) { appointment.id + 1 }
+
+      it "responds with 400" do
+        expect(last_response.status).to eq(400)
+      end
+
+      it "returns the error" do
+        expect(JSON.parse(last_response.body)).to include("error" => "Appointment not found")
       end
     end
   end

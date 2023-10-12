@@ -32,7 +32,36 @@ class AppointmentsController
     end
   end
 
+  def update
+    # REFACTOR: Move this to similar service as CreateAppointmentsService or combine them in one
+    appointment = doctor.appointments.find_by(id: params[:appointment_id])
+    if params[:appointment].present? && appointment&.update(params[:appointment])
+      [200, Appointment::Presenter.new(appointment).to_h]
+    else
+      [400, update_error(appointment)]
+    end
+  end
+
+  def delete
+    # REFACTOR: Move this to similar service as CreateAppointmentsService or combine them in one
+    appointment = doctor.appointments.find_by(id: params[:appointment_id])
+    return 204 if appointment&.destroy
+
+    [400, {error: "Appointment not found"}]
+  end
+
+
   private
 
   attr_accessor :doctor, :params
+
+  # REFACTOR: Use null object pattern for appointment and this method can be
+  # removed
+  def update_error(appointment)
+    if appointment&.errors&.any?
+      {error: appointment.errors.messages}
+    else
+      {error: "Appointment not found"}
+    end
+  end
 end

@@ -39,7 +39,9 @@ class Router < Sinatra::Base
     response.to_json
   end
 
-  # delete "/api/v1/doctors/:doctor_id/appointments/:appointment_id" do
-  #   AppointmentsController.call(:delete, params).to_json
-  # end
+  delete "/api/v1/doctors/:doctor_id/appointments/:appointment_id" do
+    code, response = AppointmentsController.call(:delete, params)
+    status code
+    response&.to_json
+  end
 end

@@ -23,7 +23,7 @@ class CreateAppointmentsService
     if @result&.any? { _1[:errors] }
       [400, @result]
     else
-      [200, @result]
+      [201, @result]
     end
   end
 
