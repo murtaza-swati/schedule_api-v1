@@ -43,18 +43,29 @@ RSpec.describe AppointmentsController do
 
   describe "#create" do
     let(:doctor) { instance_double(Doctor) }
-    let(:params) { {doctor_id: 1} }
 
     before do
       allow(Doctor).to receive(:find_by).and_return(doctor)
     end
 
-    it "calls CreateAppointmentService" do
-      expect(CreateAppointmentsService)
-        .to receive(:call)
-        .with(doctor, params)
-        .and_return({})
-      AppointmentsController.call(:create, params)
+    context "when no appointments are passed" do
+      let(:params) { {doctor_id: 1} }
+
+      it "returns an error message" do
+        expect(AppointmentsController.call(:create, params)).to eq([400, {error: "No appointments to create"}])
+      end
+    end
+
+    context "when appointments are passed" do
+      let(:params) { {doctor_id: 1, appointments: [{patient_name: "John Doe", start_time: "01.01.2023 10:00"}]} }
+
+      it "calls CreateAppointmentService" do
+        expect(CreateAppointmentsService)
+          .to receive(:call)
+          .with(doctor, params)
+          .and_return({})
+        AppointmentsController.call(:create, params)
+      end
     end
   end
 end

@@ -163,12 +163,12 @@ RSpec.describe Router do
         end
 
         it "returns the appointment" do
-          expect(JSON.parse(last_response.body).values).to include("John Doe")
+          expect(JSON.parse(last_response.body).first.values).to include("John Doe")
         end
       end
     end
 
-    xcontext "with invalid params" do
+    context "with invalid params" do
       let(:params) do
         {}
       end
@@ -177,8 +177,8 @@ RSpec.describe Router do
         expect(last_response.status).to eq(400)
       end
 
-      it "returns the errors" do
-        expect(JSON.parse(last_response.body)).to include("patient_name")
+      it "returns the error" do
+        expect(JSON.parse(last_response.body)).to include("error")
       end
 
       it "does not create the appointment" do

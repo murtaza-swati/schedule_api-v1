@@ -24,7 +24,12 @@ class AppointmentsController
   end
 
   def create
-    CreateAppointmentsService.call(doctor, params)
+    # REFACTOR: Move this check logic to schema validation level
+    if params[:appointments].present? || params[:appointment].present?
+      CreateAppointmentsService.call(doctor, params)
+    else
+      [400, {error: "No appointments to create"}]
+    end
   end
 
   private

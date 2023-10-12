@@ -28,12 +28,16 @@ class Router < Sinatra::Base
   end
 
   post "/api/v1/doctors/:doctor_id/appointments" do
-    AppointmentsController.call(:create, params).to_json
+    code, response = AppointmentsController.call(:create, params)
+    status code
+    response.to_json
   end
 
-  # put "/api/v1/doctors/:doctor_id/appointments/:appointment_id" do
-  #   AppointmentsController.call(:update, params).to_json
-  # end
+  put "/api/v1/doctors/:doctor_id/appointments/:appointment_id" do
+    code, response = AppointmentsController.call(:update, params)
+    status code
+    response.to_json
+  end
 
   # delete "/api/v1/doctors/:doctor_id/appointments/:appointment_id" do
   #   AppointmentsController.call(:delete, params).to_json
