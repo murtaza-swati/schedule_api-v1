@@ -10,7 +10,7 @@ class Router < Sinatra::Base
     content_type :json
 
     unless request.accept? "application/json"
-      halt 415, { error: "Server only supports application/json" }.to_json
+      halt 415, {error: "Server only supports application/json"}.to_json
     end
   end
 
