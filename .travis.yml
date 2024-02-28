@@ -52,3 +52,5 @@ env:
   global:
     - SECRET_KEY=0b1edf7e6c104a79c2986bebeb07b68d6fe617d3484c4eddc7ae7623e71cad496364709e3b4e2338d1c5ad95f83a6c75c3d8c9fb8cffbe0b5b169d7cdda8be29
     - ARTIFACTS_PATHS="./coverage"
+
+    
